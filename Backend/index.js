@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended: true}))
 // }));
 app.use(cors())
 app.use((req, res, next) => {
-  console.log(`Request: ${req.method} ${req.url}`);
+  // console.log(`Request: ${req.method} ${req.url}`);
   next();
 });
 app.use(router)
@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 
 connectDatabase()
   .then(async () => {
-    console.log('✅ Database connected successfully');
+    // console.log('✅ Database connected successfully');
     
     // Ensure your app user exists
     await addUser();
@@ -40,7 +40,7 @@ connectDatabase()
     
     // Start the server
     app.listen(PORT, () => {
-        console.log(`🚀 Server running on port ${PORT}`);
+        // console.log(`🚀 Server running on port ${PORT}`);
     });
 })
 

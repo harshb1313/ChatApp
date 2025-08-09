@@ -6,13 +6,13 @@ async function getMessage(req, res) {
   try {
     const messages = await Message.find()
     res.status(200).json(messages)
-  } catch (error) {
-    console.log('couldnt receive message', error)
+  } catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
 
 const sendMessage = async (req, res) => {
-  console.log('🚀 sendMessage controller reached!', req.body);
+  
   try {
     const appUserWaId = '8866239183'; // your app's wa_id
     const { receiver_wa_id, message } = req.body;
@@ -24,7 +24,7 @@ const sendMessage = async (req, res) => {
     // Optional: verify receiver exists
     let receiverUser = await User.findOne({ wa_id: receiver_wa_id });
     if (!receiverUser) {
-      console.log('🆕 Creating new user:', receiver_wa_id);
+    
       receiverUser = new User({
         wa_id: receiver_wa_id,
         name: `User ${receiver_wa_id}` // or just receiver_wa_id
@@ -47,7 +47,7 @@ const sendMessage = async (req, res) => {
     res.status(201).json(saved);
 
   } catch (err) {
-    console.error('Send message error:', err);
+    
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -111,7 +111,7 @@ const getChats = async (req, res) => {
     res.json(chatList);
 
   } catch (err) {
-    console.error('Get chats error:', err);
+    
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -130,7 +130,6 @@ const getMessagesForChat = async (req, res) => {
 
     res.json(messages);
   } catch (err) {
-    console.error('Get messages for chat error:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 };

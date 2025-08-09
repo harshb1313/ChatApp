@@ -16,17 +16,17 @@ async function processPayloads() {
         const raw = fs.readFileSync(filePath, 'utf-8');
         const parsed = JSON.parse(raw);
 
-        console.log(`Processing file: ${file}`);
+        // console.log(`Processing file: ${file}`);
 
         // Basic validation on structure
         if (!parsed.metaData?.entry?.length) {
-          console.log(`Skipping ${file} - invalid metaData.entry`);
+          // console.log(`Skipping ${file} - invalid metaData.entry`);
           continue;
         }
 
         const entry = parsed.metaData.entry[0];
         if (!entry.changes?.length) {
-          console.log(`Skipping ${file} - invalid changes`);
+          // console.log(`Skipping ${file} - invalid changes`);
           continue;
         }
 
@@ -37,7 +37,7 @@ async function processPayloads() {
           !value?.contacts?.length ||
           !value?.messages?.length
         ) {
-          console.log(`Skipping ${file} - missing contacts or messages`);
+          // console.log(`Skipping ${file} - missing contacts or messages`);
           continue;
         }
 
@@ -47,14 +47,14 @@ async function processPayloads() {
 
         // Check mandatory fields
         if (!contact.profile?.name || !message.text?.body) {
-          console.log(`Skipping ${file} - missing name or message text`);
+          // console.log(`Skipping ${file} - missing name or message text`);
           continue;
         }
 
         // Prevent duplicates based on message_id
         const existing = await Message.findOne({ message_id: message.id });
         if (existing) {
-          console.log(`Skipping duplicate message: ${message.id}`);
+          // console.log(`Skipping duplicate message: ${message.id}`);
           continue;
         }
 
@@ -86,7 +86,7 @@ async function processPayloads() {
         const doc = new Message(newMsgData);
         await doc.save();
 
-        console.log(`✅ Saved message from ${newMsgData.name} (${newMsgData.sender_wa_id})`);
+        // console.log(`✅ Saved message from ${newMsgData.name} (${newMsgData.sender_wa_id})`);
 
       } catch (fileError) {
         console.error(`Error processing ${file}:`, fileError.message);

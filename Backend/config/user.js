@@ -8,7 +8,7 @@ async function addUser() {
     const userExist = await User.findOne({ wa_id });
     if (!userExist) {
       await User.create({ wa_id, name });
-      console.log(`User ${name} added.`);
+      
     } else {
       console.log(`User ${name} already exists.`);
     }
