@@ -12,7 +12,7 @@ const connectDatabase = async () => {
         await mongoose.connect(uri)
         console.log('✅ Database connected successfully') // Fixed: added quotes around string
     } catch (err) {
-        
+        console.log('cant connect to Db')
         process.exit(1)
     }
 } 
