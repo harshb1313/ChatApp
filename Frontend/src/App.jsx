@@ -19,7 +19,7 @@ function App() {
   // Get list of all my chats
   const loadAllChats = async () => {
     try {
-      const response = await fetch('http://localhost:3000/chats');
+      const response = await fetch('https://chatapp-q39z.onrender.com/chats');
       const chats = await response.json();
       setAllChats(chats);
     } catch (error) {
@@ -33,7 +33,7 @@ function App() {
     setCurrentChat(person);
     
     try {
-      const response = await fetch(`http://localhost:3000/api/messages/${person.wa_id}`);
+      const response = await fetch(`https://chatapp-q39z.onrender.com/api/messages/${person.wa_id}`);
       const messages = await response.json();
       setChatMessages(messages);
     } catch (error) {
@@ -62,7 +62,7 @@ function App() {
     setNewMessage(''); // Clear the input
 
     try {
-      const response = await fetch('http://localhost:3000/api/messages', {
+      const response = await fetch('https://chatapp-q39z.onrender.com/api/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
